@@ -267,14 +267,14 @@ def translate():
                 'anthropic-version': '2023-06-01'
             },
             json={
-                'model': 'claude-sonnet-4-20250514',
+                'model': 'claude-sonnet-5-5',
                 'max_tokens': 1000,
                 'messages': [{'role': 'user', 'content': prompt}]
             },
             timeout=30
         )
         if r.status_code != 200:
-            return jsonify({'error': 'Translation failed'}), 500
+            return jsonify({'error': 'Translation failed: ' + r.text}), 500
         translation = r.json()['content'][0]['text'].strip()
         return jsonify({'translation': translation})
     except Exception as e:
